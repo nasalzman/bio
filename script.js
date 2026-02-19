@@ -2,14 +2,20 @@ let num = 0;
 let wins = 0;
 
 function decrease() {
-    num --;
-    num = num % 10;
+    if (num > 0) {
+        num --;
+    } else {
+        num = 9;
+    }
     document.getElementById("guessTheNumber").textContent = num;
 }
 
 function increase() {
-    num ++;
-    num = num % 10;
+    if (num < 9) {
+        num ++;
+    } else {
+        num = 0;
+    }
     document.getElementById("guessTheNumber").textContent = num;
 }
 

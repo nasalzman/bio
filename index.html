@@ -1,45 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script src="script.js"></script>
-    <title>Bio</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <script src="script.js"></script>
+        <title>Bio</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
 
-    <h1>Nathan Salzman's Bio</h1>
+        <h1>Nathan Salzman's Bio</h1>
 
-    <h4>I'm Nathan Salzman, and here are some things I like to do:</h4>
+        <h4>I'm Nathan Salzman, and here are some things I like to do:</h4>
 
-    <ol type="I">
-        <li>Coding</li>
-        <li>Playing video games</li>
-        <li>Bouldering</li>
-        <li>3d modeling</li>
-        <li>Photography</li>
+        <ol style="width: 15%" type="I" class="hoverOL">
+            <li>Coding</li>
+            <li>Playing video games</li>
+            <li>Bouldering</li>
+            <li>3d modeling</li>
+            <li>Photography</li>
+        </ol>
 
-    </ol>
+        <h4>Here are the things that I've made so far:</h4>
 
-    <h4>Here are the things that I've made so far:</h4>
+        <ol type="I" class="hoverOL">
+            <li>
+                <a href="https://nasalzman.github.io/English10Site/">Website for my English project</a>
+            </li>
+            <li>
+                <a href="recipe/index.html">Recipe</a>
+            </li>
+        </ol>
 
-    <ol type="I">
-        <li>
-            <a href="https://nasalzman.github.io/English10Site/">Website for my English project</a>
-        </li>
-        <li>
-            <a href="recipe/index.html">Recipe</a>
-        </li>
-    </ol>
+        <h4 id="wins">Play guess the number (wins: 0)</h4>
 
-    <h4 id="wins">Play guess the number (wins: 0)</h4>
+        <div id="gameWindow" style="display: flex; gap: 10px">
+            <button style="display: inline-block" onclick="decrease()"><</button>
+            <p id="guessTheNumber">0</p>
+            <button style="display: inline-block" onclick="increase()">></button>
+        </div>
 
-    <div id="gameWindow" style="display: flex; gap: 10px">
-        <button style="display: inline-block" onclick="decrease()"><</button>
-        <p id="guessTheNumber">0</p>
-        <button style="display: inline-block" onclick="increase()">></button>
-    </div>
+        <button style="margin-top: 10px" onclick="guess()">submit</button>
 
-    <button style="margin-top: 10px" onclick="guess()">submit</button>
+        <div id="rotation">
+            <div class="rotatingCircle"></div>
+            <div class="rotatingCircle"></div>
+            <div class="rotatingCircle"></div>
+            <div class="rotatingCircle"></div>
+        </div>
 
-</body>
+    </body>
 </html>

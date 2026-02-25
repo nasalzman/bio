@@ -1,0 +1,58 @@
+@keyframes rotate {
+    0% {
+        transform-origin: bottom right;
+        transform: rotate(0deg);
+        background-color: chartreuse;
+    }
+    25% {
+        transform-origin: bottom right;
+        transform: rotate(90deg);
+    }
+    50% {
+        transform-origin: bottom right;
+        transform: rotate(180deg);
+        background-color: darkcyan;
+    }
+    75% {
+        transform-origin: bottom right;
+        transform: rotate(270deg);
+    }
+    100% {
+        transform-origin: bottom right;
+        transform: rotate(360deg);
+        background-color: chartreuse;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: translate(1px, 0px);
+    }
+    5% {
+        transform: translate(-1px, 1px);
+    }
+    10% {
+        transform: translate(0px, -1px);
+    }
+    20% {
+        transform: translate(0px, 0px);
+    }
+}
+
+#rotation {
+    margin-top: 20px;
+    display: flex;
+}
+
+.rotatingCircle {
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    border-radius: 50%;
+    animation: rotate 2s infinite linear;
+}
+
+.hoverOL > *:hover {
+    font-style: italic;
+    animation: pulse 1s linear;
+}

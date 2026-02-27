@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid1</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener("mousemove", function(e) {
+            const mouseX = e.clientX - 637;
+            console.log(mouseX);
+            const mouseY = e.clientY - 155;
+            console.log(mouseY);
+
+            const eyeball1 = document.querySelector("#eyeball1");
+            const eyeball2 = document.querySelector("#eyeball2");
+
+            const left1 = parseFloat(window.getComputedStyle(eyeball1).left);
+            const top1  = parseFloat(window.getComputedStyle(eyeball1).top);
+            const left2 = parseFloat(window.getComputedStyle(eyeball2).left);
+            const top2  = parseFloat(window.getComputedStyle(eyeball2).top);
+
+            eyeball1.style.transform = `translate(${Math.cbrt(mouseX - left1)}px, ${Math.cbrt(mouseY - top1)}px)`;
+            eyeball2.style.transform = `translate(${Math.cbrt(mouseX - left2)}px, ${Math.cbrt(mouseY - top2)}px)`;
+        });
+    </script>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid-header">
+            <h1>Downy Woodpecker (<i>Dryobates pubescens</i>)</h1>
+        </div>
+        <div class="grid-body1">
+            <img width="180px" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Downy_Woodpecker01.jpg" alt="Downy Woodpecker">
+        </div>
+        <div class="grid-body2">
+            <h3>Diet:</h3>
+            <ul>
+                <li>Insects</li>
+                <li>Berries</li>
+                <li>Acorns</li>
+                <li>Grains</li>
+            </ul>
+        </div>
+        <div class="grid-body3">
+            <img width="180px" src="bird.png" alt="Bird">
+            <div id="eyeball1" class="eyeball"></div>
+            <div id="eyeball2" class="eyeball"></div>
+        </div>
+        <div class="grid-footer">
+            <h3>Takeaway: birds are cool 🐥👍🏻😎</h3>
+        </div>
+    </div>
+</body>
+</html>

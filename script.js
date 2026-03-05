@@ -74,6 +74,7 @@ function shoryuken() {
 
 document.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
+        e.preventDefault();
         if (interval) return;
         interval = setInterval(shoryuken, 50);
     }

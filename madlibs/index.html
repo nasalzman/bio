@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Madlibs</title>
+    <script>
+        function madlibs() {
+            document.querySelector("#inputField").style.display = "none";
+
+            let inputs = [];
+
+            for (let i = 1; i < 7; i++) {
+                inputs.push(document.querySelector("#input" + i).value);
+            }
+
+            document.querySelectorAll(".field").forEach((e, i) => {
+                e.textContent = inputs[i];
+                console.log(e.textContent + " | " + inputs[i]);
+            });
+
+            document.querySelector("#outputField").style.display = "block";
+        }
+    </script>
+</head>
+<body>
+    <h1>Madlibs</h1>
+    <div id="inputField">
+        <label for="input1">Past tense verb: </label><input id="input1" type="text"><br>
+        <label for="input2">Noun: </label><input id="input2" type="text"><br>
+        <label for="input3">Adjective: </label><input id="input3" type="text"><br>
+        <label for="input4">Past tense verb: </label><input id="input4" type="text"><br>
+        <label for="input5">Person: </label><input id="input5" type="text"><br>
+        <label for="input6">Food: </label><input id="input6" type="text"><br>
+        <button id="submit" type="submit" onclick="madlibs()">Submit</button>
+    </div>
+    <div id="outputField" style="display: none">
+        <p>Today, I <span class="field">(past tense verb)</span> to the store to get some tomatoes. While I was there, a <span class="field">(noun)</span> took the last tomato! I was so <span class="field">(adjective)</span> that I <span class="field">(past tense verb)</span> him. Then out of nowhere, <span class="field">(person)</span> showed up and told me that I couldn’t do that. So I went home, sad that I couldn’t make my son <span class="field">(food)</span> for dinner.</p>
+    </div>
+</body>
+</html>

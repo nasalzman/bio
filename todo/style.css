@@ -1,0 +1,36 @@
+body {
+    background-image: url(hills.png);
+    background-size: cover;
+}
+
+.categoryDiv {
+    background-color: lightgray;
+    width: 200px;
+    height: fit-content;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 10px 10px 20px 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.row {
+    align-items: center;
+    display: flex;
+}
+
+.categoryName {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.checkboxBox {
+    margin-left: 20px;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    border: 1px solid black;
+}

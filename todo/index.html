@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="categoryDiv">
+        <h2 class="categoryName" contenteditable="plaintext-only">Category</h2>
+        <div class="row"><input type="checkbox" class="checkboxBox"><input type="text" class="textAdd" size="10"><button onclick="addBox(this)">Add</button><br></div>
+    </div>
+    <div id="addDiv">
+        <input type="image" src="new.png" alt="new" id="addSection" width="50px" onclick="newSection()">
+    </div>
+</body>
+</html>

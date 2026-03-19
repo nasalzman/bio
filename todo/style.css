@@ -65,6 +65,7 @@ body {
     width: 15px;
     height: 15px;
     overflow: hidden;
+    z-index: 20;
 }
 
 .hDiv::after {

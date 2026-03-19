@@ -35,12 +35,8 @@ function addBox(box) {
     divc.style.position = "relative";
     let hDiv = document.createElement("div");
     hDiv.className = "hDiv";
+    hDiv.onclick = (e) => {deleteme(e.currentTarget)}
     divc.appendChild(hDiv);
-    hDiv.style.position = "absolute";
-    hDiv.style.right = "0";
-    hDiv.style.height = "15px";
-    hDiv.style.width = "15px";
-    hDiv.style.zIndex = "20";
     let inputc = document.createElement("input");
     inputc.type = "checkbox";
     inputc.className = "checkboxBox";
@@ -87,4 +83,8 @@ function newSection() {
     newAddRow.appendChild(newAddBtn);
     newDiv.appendChild(newAddRow);
     document.body.insertBefore(newDiv, document.querySelector("#addDiv"));
+}
+
+function deleteme(thing) {
+    thing.parentElement.parentElement.removeChild(thing.parentElement);
 }

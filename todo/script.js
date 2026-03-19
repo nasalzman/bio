@@ -31,6 +31,16 @@ function addBox(box) {
     parentalDiv.removeChild(pDiv);
     let divc = document.createElement("div");
     divc.className = "row";
+    divc.style.zIndex = "10";
+    divc.style.position = "relative";
+    let hDiv = document.createElement("div");
+    hDiv.className = "hDiv";
+    divc.appendChild(hDiv);
+    hDiv.style.position = "absolute";
+    hDiv.style.right = "0";
+    hDiv.style.height = "15px";
+    hDiv.style.width = "15px";
+    hDiv.style.zIndex = "20";
     let inputc = document.createElement("input");
     inputc.type = "checkbox";
     inputc.className = "checkboxBox";

@@ -24,6 +24,12 @@ document.addEventListener('change', (e) => {
     }
 });
 
+document.addEventListener('DOMContentLoaded', (e) => {
+    if (getCookie("doc") !== "") {
+        document.body.innerHTML = getCookie("doc");
+    }
+})
+
 function addBox(box) {
     let parentalDiv = box.parentElement.parentElement
     let pDiv = box.parentElement
@@ -54,6 +60,7 @@ function addBox(box) {
     parentalDiv.appendChild(divc);
     parentalDiv.appendChild(pDiv);
     pDiv.querySelector(".textAdd").value = "";
+    fullCookie();
 }
 
 function newSection() {
@@ -83,8 +90,37 @@ function newSection() {
     newAddRow.appendChild(newAddBtn);
     newDiv.appendChild(newAddRow);
     document.body.insertBefore(newDiv, document.querySelector("#addDiv"));
+    fullCookie();
 }
 
 function deleteme(thing) {
     thing.parentElement.parentElement.removeChild(thing.parentElement);
+    fullCookie();
+}
+
+function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function fullCookie() {
+    setCookie("doc", document.body.innerHTML, 7);
 }

@@ -1,3 +1,5 @@
+let numsections = 1
+
 document.addEventListener('change', (e) => {
     if (!e.target.classList.contains('checkboxBox')) return;
 
@@ -23,12 +25,6 @@ document.addEventListener('change', (e) => {
         box.style.transform = "";
     }
 });
-
-document.addEventListener('DOMContentLoaded', (e) => {
-    if (getCookie("doc") !== "") {
-        document.body.innerHTML = getCookie("doc");
-    }
-})
 
 function addBox(box) {
     let parentalDiv = box.parentElement.parentElement
@@ -59,13 +55,14 @@ function addBox(box) {
     divc.appendChild(document.createElement("br"));
     parentalDiv.appendChild(divc);
     parentalDiv.appendChild(pDiv);
+    setCookie(parentalDiv.id, getCookie(parentalDiv.id) + "&#13565" + pDiv.querySelector(".textAdd").value, 7);
     pDiv.querySelector(".textAdd").value = "";
-    fullCookie();
 }
 
 function newSection() {
     let newDiv = document.createElement("div");
     newDiv.className = "categoryDiv";
+    newDiv.id = "sec" + numsections;
     let addH2 = document.createElement("h2");
     addH2.className = "categoryName";
     addH2.contentEditable = "plaintext-only";
@@ -90,19 +87,18 @@ function newSection() {
     newAddRow.appendChild(newAddBtn);
     newDiv.appendChild(newAddRow);
     document.body.insertBefore(newDiv, document.querySelector("#addDiv"));
-    fullCookie();
+    setCookie("sec" + numsections, "", 7);
 }
 
 function deleteme(thing) {
     thing.parentElement.parentElement.removeChild(thing.parentElement);
-    fullCookie();
 }
 
 function setCookie(cname, cvalue, exdays) {
     const d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     let expires = "expires="+ d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    document.cookie = cname + "=" + encodeURIComponent(cvalue) + ";" + expires + ";path=/";
 }
 
 function getCookie(cname) {
@@ -119,8 +115,4 @@ function getCookie(cname) {
         }
     }
     return "";
-}
-
-function fullCookie() {
-    setCookie("doc", document.body.innerHTML, 7);
 }

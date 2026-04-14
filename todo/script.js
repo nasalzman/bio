@@ -31,7 +31,6 @@ document.addEventListener('change', (e) => {
     saveSection(section);
 });
 
-// ✅ Save title edits
 document.addEventListener("input", (e) => {
     if (!e.target.classList.contains("categoryName")) return;
 

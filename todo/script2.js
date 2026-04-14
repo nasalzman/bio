@@ -54,7 +54,7 @@ class Section {
 
         let newAddBtn = document.createElement("button");
         newAddBtn.textContent = "Add";
-        newAddBtn.onclick = (e) => {
+        newAddBtn.onclick = () => {
             this.addTask(newAddTxt.value, newAddCB.checked);
             newAddTxt.value = "";
             newAddTxt.focus();
@@ -74,7 +74,7 @@ class Section {
     }
 
     tasks = [];
-    boxnum = 0;
+    boxNum = 0;
 
     addTask(name, checked) {
         let task = new Task(name, checked);
@@ -93,7 +93,7 @@ class Section {
         let inputc = document.createElement("input");
         inputc.type = "checkbox";
         inputc.className = "checkboxBox";
-        inputc.id = "box" + (this.boxnum++);
+        inputc.id = "box" + (this.boxNum++);
 
         inputc.checked = task.checked_
         inputc.style.backgroundColor = inputc.checked_ ? "lightgreen" : "transparent";
@@ -109,7 +109,7 @@ class Section {
 
         this.identity.insertBefore(divc, this.identity.querySelector(".special"));
 
-        document.cookie = this.sectionID + "=" + getCookie(this.sectionID) + "|{+|" + name + "|4Í|" + checked + "; expires=" + (new Date(new Date().getTime() + 604800000).toUTCString());;
+        document.cookie = this.sectionID + "=" + getCookie(this.sectionID) + "|{+|" + name + "|4Í|" + checked + "; expires=" + (new Date(new Date().getTime() + 604800000).toUTCString());
     }
 }
 

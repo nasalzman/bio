@@ -1,5 +1,3 @@
-numsections = 0;
-
 document.addEventListener('change', (e) => {
     if (!e.target.classList.contains('checkboxBox')) return;
 
@@ -55,6 +53,8 @@ class Section {
         let newAddBtn = document.createElement("button");
         newAddBtn.textContent = "Add";
         newAddBtn.onclick = () => {
+            if (!newAddTxt.value.trim()) return;
+
             this.addTask(newAddTxt.value, newAddCB.checked);
             newAddTxt.value = "";
             newAddTxt.focus();
@@ -67,16 +67,15 @@ class Section {
         document.body.insertBefore(newDiv, document.querySelector("#addDiv"));
 
         this.identity = newDiv;
-        numsections ++;
-
-        document.cookie = "sec" + numsections + "=; expires=" + (new Date(new Date().getTime() + 604800000).toUTCString());
-        this.sectionID = numsections;
+        this.sectionID = ++numsections;
     }
 
     tasks = [];
     boxNum = 0;
 
     addTask(name, checked) {
+        if (!name) return;
+
         let task = new Task(name, checked);
         this.tasks.push(task);
 
@@ -95,8 +94,8 @@ class Section {
         inputc.className = "checkboxBox";
         inputc.id = "box" + (this.boxNum++);
 
-        inputc.checked = task.checked_
-        inputc.style.backgroundColor = inputc.checked_ ? "lightgreen" : "transparent";
+        inputc.checked = task.checked_;
+        inputc.style.backgroundColor = inputc.checked ? "lightgreen" : "transparent";
         divc.appendChild(inputc);
 
         let labelc = document.createElement("label");
@@ -109,7 +108,15 @@ class Section {
 
         this.identity.insertBefore(divc, this.identity.querySelector(".special"));
 
-        document.cookie = this.sectionID + "=" + getCookie(this.sectionID) + "|{+|" + name + "|4Í|" + checked + "; expires=" + (new Date(new Date().getTime() + 604800000).toUTCString());
+        let current = getCookie(this.sectionID);
+
+        let updated = current
+            ? current + "|{+|" + name + "|4Í|" + checked
+            : name + "|4Í|" + checked;
+
+        document.cookie = this.sectionID + "=" + updated +
+            "; expires=" + new Date(Date.now() + 604800000).toUTCString() +
+            "; path=/";
     }
 }
 
@@ -126,23 +133,43 @@ function getCookie(cname) {
     let ca = decodedCookie.split(';');
 
     for(let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') {
-            c = c.substring(1);
-        }
+        let c = ca[i].trim();
         if (c.indexOf(name) === 0) {
-            return c.substring(name.length, c.length);
+            return c.substring(name.length);
         }
     }
     return "";
 }
 
 let totalCookies = document.cookie.split(";");
+
+numsections = totalCookies.filter(c => {
+    let key = c.split("=")[0].trim();
+    return !isNaN(Number(key));
+}).length;
+
 totalCookies.forEach(c => {
+    c = c.trim();
+    if (!c.includes("=")) return;
+
+    let [key, value] = c.split("=");
+
+    if (isNaN(Number(key))) return;
+    if (!value) return;
+
     let s = new Section();
-    let tasks = c.split("|{+|");
+
+    let tasks = value.split("|{+|");
+
     tasks.forEach(t => {
+        if (!t) return;
+
         let attr = t.split("|4Í|");
-        s.addTask(attr[0], attr[1]);
-    })
-})
+        if (attr.length < 2) return;
+
+        let name = attr[0];
+        let checked = attr[1] === "true";
+
+        s.addTask(name, checked);
+    });
+});

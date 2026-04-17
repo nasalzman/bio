@@ -143,6 +143,12 @@ function getCookie(cname) {
 
 let totalCookies = document.cookie.split(";");
 
+document.cookie.split(';').forEach(cookie => {
+    const eqPos = cookie.indexOf('=');
+    const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+});
+
 numsections = totalCookies.filter(c => {
     let key = c.split("=")[0].trim();
     return !isNaN(Number(key));

@@ -73,7 +73,7 @@ class Section {
     tasks = [];
     boxNum = 0;
 
-    addTask(name, checked) {
+    addTask(name, checked, skipSave = false) {
         if (!name) return;
 
         let task = new Task(name, checked);
@@ -108,15 +108,13 @@ class Section {
 
         this.identity.insertBefore(divc, this.identity.querySelector(".special"));
 
+        if (skipSave) return;
+
         let current = getCookie(this.sectionID);
 
-        let updated = current
-            ? current + "|{+|" + name + "|4Í|" + checked
-            : name + "|4Í|" + checked;
+        let updated = current ? current + "|{+|" + name + "|4Í|" + checked : name + "|4Í|" + checked;
 
-        document.cookie = this.sectionID + "=" + updated +
-            "; expires=" + new Date(Date.now() + 604800000).toUTCString() +
-            "; path=/";
+        document.cookie = this.sectionID + "=" + updated + "; expires=" + new Date(Date.now() + 604800000).toUTCString() + "; path=/";
     }
 }
 
@@ -142,12 +140,6 @@ function getCookie(cname) {
 }
 
 let totalCookies = document.cookie.split(";");
-
-document.cookie.split(';').forEach(cookie => {
-    const eqPos = cookie.indexOf('=');
-    const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
-    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
-});
 
 numsections = totalCookies.filter(c => {
     let key = c.split("=")[0].trim();
@@ -176,6 +168,6 @@ totalCookies.forEach(c => {
         let name = attr[0];
         let checked = attr[1] === "true";
 
-        s.addTask(name, checked);
+        s.addTask(name, checked, true);
     });
 });

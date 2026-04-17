@@ -80,3 +80,19 @@ body {
     background-color: darkorange;
     animation: rise 0.2s ease-out forwards;
 }
+
+#gameDiv {
+    position: fixed;
+    height: 320px;
+    width: 320px;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.gameImg {
+    position: absolute;
+    height: 8px;
+    width: 8px;
+    z-index: 20;
+}

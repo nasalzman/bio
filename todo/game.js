@@ -61,6 +61,8 @@ function renderMap() {
             base.className = "gameImg";
             base.className = "gameImg";
 
+            storage.style.position = "relative";
+
             base.src = "sprites/" + gameMap[x][y][0] + ".gif";
             more.src = "sprites/" + gameMap[x][y][1] + ".png";
 

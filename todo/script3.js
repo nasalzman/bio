@@ -6,7 +6,6 @@ document.addEventListener('change', async (e) => {
     const box = e.target;
     const taskId = box.dataset.taskId;
 
-    // Handle Animation and Styles
     if (box.checked) {
         box.animate([
             { transform: 'rotate(0deg) scale(1)', offset: 0 },
@@ -33,7 +32,7 @@ document.addEventListener('change', async (e) => {
             if (task) {
                 task.checked = box.checked;
                 await section.saveSection();
-                break; // Stop looking once found and saved
+                break;
             }
         }
     }
@@ -91,7 +90,6 @@ class Section {
     }
 
     addTask(name, checked, id = null) {
-        // Use existing ID if loading from cookies, otherwise generate new
         let task = new Task(name, checked, id);
         this.tasks.push(task);
 
@@ -103,7 +101,7 @@ class Section {
         let inputc = document.createElement("input");
         inputc.type = "checkbox";
         inputc.className = "checkboxBox";
-        inputc.id = "box-" + task.id; // Unique ID for label targeting
+        inputc.id = "box" + task.id;
         inputc.dataset.taskId = task.id;
 
         inputc.checked = task.checked;
@@ -126,7 +124,6 @@ class Section {
     }
 
     async saveSection() {
-        // Save the entire task object (including its ID) as JSON
         const data = JSON.stringify(this.tasks);
 
         await cookieStore.set({
@@ -151,7 +148,6 @@ window.addEventListener("DOMContentLoaded", async function () {
         let section = new Section(c.name);
 
         try {
-            // Parse the JSON string back into an array
             let savedTasks = JSON.parse(c.value);
             savedTasks.forEach(t => {
                 section.addTask(t.name, t.checked, t.id);

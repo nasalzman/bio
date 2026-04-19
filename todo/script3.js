@@ -4,7 +4,9 @@ document.addEventListener('change', async (e) => {
     if (!e.target.classList.contains('checkboxBox')) return;
 
     const box = e.target;
+    const taskId = box.dataset.taskId;
 
+    // Handle Animation and Styles
     if (box.checked) {
         box.animate([
             { transform: 'rotate(0deg) scale(1)', offset: 0 },
@@ -17,7 +19,6 @@ document.addEventListener('change', async (e) => {
             easing: "ease-out",
             fill: "forwards"
         });
-
         box.style.backgroundColor = "lightgreen";
     } else {
         box.getAnimations().forEach(anim => anim.cancel());
@@ -25,18 +26,16 @@ document.addEventListener('change', async (e) => {
         box.style.transform = "none";
     }
 
-    const taskId = box.dataset.taskId;
-
-    for (let section of sections) {
-        for (let task of section.tasks) {
-            if (task.id === taskId) {
+    // Sync Data and Save only the affected section
+    if (taskId) {
+        for (let section of sections) {
+            let task = section.tasks.find(t => t.id === taskId);
+            if (task) {
                 task.checked = box.checked;
+                await section.saveSection();
+                break; // Stop looking once found and saved
             }
         }
-    }
-
-    for (let section of sections) {
-        await section.saveSection();
     }
 });
 
@@ -91,8 +90,9 @@ class Section {
         sections.push(this);
     }
 
-    addTask(name, checked) {
-        let task = new Task(name, checked);
+    addTask(name, checked, id = null) {
+        // Use existing ID if loading from cookies, otherwise generate new
+        let task = new Task(name, checked, id);
         this.tasks.push(task);
 
         let divc = document.createElement("div");
@@ -103,7 +103,7 @@ class Section {
         let inputc = document.createElement("input");
         inputc.type = "checkbox";
         inputc.className = "checkboxBox";
-        inputc.id = "box" + (this.boxNum++);
+        inputc.id = "box-" + task.id; // Unique ID for label targeting
         inputc.dataset.taskId = task.id;
 
         inputc.checked = task.checked;
@@ -126,11 +126,8 @@ class Section {
     }
 
     async saveSection() {
-        let data = "";
-
-        for (let task of this.tasks) {
-            data += "|Ô|" + task.name + "|·¯|" + task.checked;
-        }
+        // Save the entire task object (including its ID) as JSON
+        const data = JSON.stringify(this.tasks);
 
         await cookieStore.set({
             name: this.getName(),
@@ -140,10 +137,10 @@ class Section {
 }
 
 class Task {
-    constructor(name, checked) {
+    constructor(name, checked, id = null) {
         this.name = name;
         this.checked = checked;
-        this.id = crypto.randomUUID();
+        this.id = id || crypto.randomUUID();
     }
 }
 
@@ -153,15 +150,14 @@ window.addEventListener("DOMContentLoaded", async function () {
     totalCookies.forEach((c) => {
         let section = new Section(c.name);
 
-        let tasks = c.value.split("|Ô|");
-
-        tasks.forEach(task => {
-            if (task === "") return;
-
-            let [name, checkedStr] = task.split("|·¯|");
-            let checked = checkedStr === "true";
-
-            section.addTask(name, checked);
-        });
+        try {
+            // Parse the JSON string back into an array
+            let savedTasks = JSON.parse(c.value);
+            savedTasks.forEach(t => {
+                section.addTask(t.name, t.checked, t.id);
+            });
+        } catch (e) {
+            console.error("Could not parse tasks for section: " + c.name);
+        }
     });
 });

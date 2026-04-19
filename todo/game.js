@@ -54,6 +54,7 @@ let gameMap = [
 function renderMap() {
     for (let x = 0; x < 40; x++) {
         for (let y = 0; y < 40; y++) {
+            let storage = document.createElement("div");
             let base = document.createElement("img");
             let more = document.createElement("img");
 
@@ -68,8 +69,10 @@ function renderMap() {
             more.left = x * 8;
             more.top = y * 8;
 
-            document.getElementById("gameDiv").appendChild(base);
-            document.getElementById("gameDiv").appendChild(more);
+            storage.appendChild(base);
+            storage.appendChild(more);
+
+            document.getElementById("gameDiv").appendChild(storage);
         }
     }
 

@@ -1,6 +1,7 @@
 gameWindow = document.querySelector("#gameDiv");
 
-let playerX, playerY;
+let playerX = 0;
+let playerY = 0;
 
 // 0 = trees
 // 1 = grass
@@ -72,7 +73,13 @@ function renderMap() {
         }
     }
 
+    let player = document.createElement("img");
+    player.className = "gameImg";
+    player.src = "sprites/player.png";
+    player.left = playerX * 8
+    player.top = playerY * 8
 
+    document.getElementById("gameDiv").appendChild(player);
 }
 
 window.addEventListener("keypress", function (e) {

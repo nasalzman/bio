@@ -63,10 +63,10 @@ function renderMap() {
             base.src = "sprites/" + gameMap[x][y][0] + ".gif";
             more.src = "sprites/" + gameMap[x][y][1] + ".png";
 
-            base.left = x * 8;
-            base.top = y * 8;
-            more.left = x * 8;
-            more.top = y * 8;
+            base.left = x * 4;
+            base.top = y * 4;
+            more.left = x * 4;
+            more.top = y * 4;
 
             document.getElementById("gameDiv").appendChild(base);
             document.getElementById("gameDiv").appendChild(more);
@@ -76,8 +76,8 @@ function renderMap() {
     let player = document.createElement("img");
     player.className = "gameImg";
     player.src = "sprites/player.png";
-    player.left = playerX * 8
-    player.top = playerY * 8
+    player.left = playerX * 4;
+    player.top = playerY * 4;
 
     document.getElementById("gameDiv").appendChild(player);
 }

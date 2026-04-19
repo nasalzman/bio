@@ -25,7 +25,6 @@ document.addEventListener('change', async (e) => {
         box.style.transform = "none";
     }
 
-    // Sync Data and Save only the affected section
     if (taskId) {
         for (let section of sections) {
             let task = section.tasks.find(t => t.id === taskId);

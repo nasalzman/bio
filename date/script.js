@@ -1,11 +1,11 @@
-let now = new Date();
+function sub() {
+    const p = document.getElementById("time");
 
-let then = new Date(2009, 11, 17);
+    const date = new Date(document.getElementById("date").value);
 
-let ms = now - then;
+    let now = new Date();
 
-document.getElementById("years").textContent = (Math.floor(ms / 1000 / 60 / 60 / 24 / 365)).toString();
+    let time = now - date;
 
-document.getElementById("months").textContent = (Math.floor(ms / 1000 / 60 / 60 / 24 / 30)).toString();
-
-document.getElementById("days").textContent = (Math.floor(ms / 1000 / 60 / 60 / 24)).toString();
+    p.innerText = `Years: ${Math.floor(time / 31536000000)}, Months: ${Math.floor(time / 2592000000)}, Days: ${Math.floor(time / 86400000)}`
+}

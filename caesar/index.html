@@ -38,6 +38,7 @@
             let output = document.getElementById("encrypted");
 
             for (let i = 0; i < input.length; i++) {
+                if (!map.hasOwnProperty(input[i])) continue;
                 output.innerText += map[input[i]];
             }
         }

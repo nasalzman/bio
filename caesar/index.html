@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Caesar Cipher</title>
+    <script defer>
+        let map = {
+            "A": "扖",
+            "B": "地",
+            "C": "劯",
+            "D": "侙",
+            "E": "剌",
+            "F": "俺",
+            "G": "偫",
+            "H": "㑶",
+            "I": "催",
+            "J": "儁",
+            "K": "𠁸",
+            "L": "儅",
+            "M": "㒞",
+            "N": "𡂹",
+            "O": "嚫",
+            "P": "𡄫",
+            "Q": "儺",
+            "R": "囋",
+            "S": "囐",
+            "T": "儾",
+            "U": "囔",
+            "V": "灦",
+            "W": "𡆞",
+            "X": "㠨",
+            "Y": "𣡹",
+            "Z": "䉹",
+        }
+
+        function cipher() {
+            let input = document.getElementById("message").value.toUpperCase();
+            let output = document.getElementById("encrypted");
+
+            for (let i = 0; i < input.length; i++) {
+                output.innerText += map[input[i]];
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Caesar Cipher</h1>
+    <label for="message">Enter a message: </label><input id="message" type="text"><br>
+    <button onclick="cipher()">Encrypt</button>
+    <p id="encrypted"></p>
+</body>
+</html>

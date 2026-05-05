@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Caesar Cipher</title>
+    <script defer>
+        function encrypt() {
+            let key = parseInt(document.getElementById("key").value);
+            let ciphertext = document.getElementById("encrypted");
+            let plaintext = document.getElementById("message").value;
+            let packs = []
+
+            for (let i = 0; i < plaintext.length; i += key) {
+                packs.push(plaintext.slice(i, i + key));
+            }
+
+            for (let i = 0; i < packs.length; i++) {
+                packs[i] = packs[i].split("").reverse().join("");
+            }
+
+            ciphertext.innerText = packs.join("");
+        }
+    </script>
+</head>
+<body>
+    <h1>Caesar Cipher</h1>
+    <label for="key">Enter a key: </label><input id="key" type="number"><br>
+    <label for="message">Enter a message: </label><input id="message" type="text"><br>
+    <button onclick="encrypt()">Encrypt</button>
+    <button onclick="encrypt()">Decrypt</button>
+    <p id="encrypted"></p>
+</body>
+</html>

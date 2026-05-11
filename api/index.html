@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Magic Api</title>
+    <script defer>
+        let ready = false;
+        let cards = [];
+        let num = 0;
+
+        async function submit() {
+            ready = true;
+            cards = await (await fetch("https://api.magicthegathering.io/v1/sets/ktk/booster")).json();
+            document.getElementById("booster").src = "https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/f/f8/Magic_card_back.jpg/revision/latest?cb=20140813141013"
+        }
+
+        function turn() {
+            if (!ready) return;
+            document.getElementById("booster").src = cards[num]["imageUrl"];
+            num ++;
+        }
+    </script>
+</head>
+<body>
+    <label for="set">Set:</label><input type="text" id="set" value="HOB">
+    <button onclick="submit()" type="submit">Submit</button><br>
+    <img width="200" style="object-fit: contain" id=booster" src="hob-314-plains.png" alt="" onclick="turn()">
+</body>
+</html>

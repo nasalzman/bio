@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Valo Api</title>
+    <script defer>
+        NDiv = document.getElementById("nathan");
+        JDiv = document.getElementById("jackson");
+        BDiv = document.getElementById("billy");
+
+        async function reload() {
+            let apikey = "";
+            let youTag = document.getElementById("tag").value;
+            let youNum = document.getElementById("num").value;
+
+            let nathan = await (await fetch("https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Croober2/TTtT?api_key=" + apikey)).json();
+            nathan = nathan["puuid"];
+            let jackson = await (await fetch("https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Wamuu/1872?api_key=" + apikey)).json();
+            jackson = jackson["puuid"];
+            let billy = await (await fetch("https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/kars/9354?api_key=" + apikey)).json();
+            billy = billy["puuid"];
+            let you = await (await fetch("https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/" + youTag + "/" + youNum + "?api_key=" + apikey)).json();
+            you = you["puuid"];
+
+
+        }
+    </script>
+</head>
+<body>
+    <h1>Winrate Comparison</h1>
+    <label for="tag"></label><input id="tag" type="text">
+    <label for="num"></label><input id="num" type="text">
+    <button id="reload" onclick="reload()"></button><br><br>
+    <div id="nathan">
+        <h2>Nathan:</h2><br>
+        <h3>Winrate: </h3><p class="winrate"></p>
+        <h3>Games: </h3><p class="games"></p>
+        <h3>Headshot percentage: </h3><p class="hsp"></p>
+        <h3>Rifle kills: </h3><p class="kills"></p>
+    </div>
+    <div id="jackson">
+        <h2>Jackson:</h2><br>
+        <h3>Winrate: </h3><p class="winrate"></p>
+        <h3>Games: </h3><p class="games"></p>
+        <h3>Headshot percentage: </h3><p class="hsp"></p>
+        <h3>Rifle kills: </h3><p class="kills"></p>
+    </div>
+    <div id="billy">
+        <h2>Billy:</h2><br>
+        <h3>Winrate: </h3><p class="winrate"></p>
+        <h3>Games: </h3><p class="games"></p>
+        <h3>Headshot percentage: </h3><p class="hsp"></p>
+        <h3>Rifle kills: </h3><p class="kills"></p>
+    </div>
+    <div id="you">
+        <h2>You:</h2><br>
+        <h3>Winrate: </h3><p class="winrate"></p>
+        <h3>Games: </h3><p class="games"></p>
+        <h3>Headshot percentage: </h3><p class="hsp"></p>
+        <h3>Rifle kills: </h3><p class="kills"></p>
+    </div>
+</body>
+</html>
